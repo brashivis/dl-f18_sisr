@@ -13,7 +13,7 @@ Entering either folder will display the original README file for each project. T
 * Tuning convolutional layer parameters and adding more convolutional layers
 * Integrating noise, such as blurring, in pre-processing
 * Using speciﬁc types of images, such as landscapes, to train a specialized model
-* Using the perceptual loss function as suggested in Johnson et al. instead of PSNR
+* Using the perceptual loss function as suggested in [Johnson et al.](https://arxiv.org/abs/1603.08155) instead of PSNR
 
 ## Trained Models
 
