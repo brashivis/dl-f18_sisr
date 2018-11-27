@@ -98,7 +98,7 @@ class AblationUpsampler(nn.Sequential):
 
         elif scale == 3:
             m.append(conv(n_feats, n_feats, 3, bias))
-            m.append(F.interpolate(scale_factor=3))
+            m.append(nn.Upsample(scale_factor=3))
             if bn: m.append(nn.BatchNorm2d(n_feats))
 
             if act == 'relu':
