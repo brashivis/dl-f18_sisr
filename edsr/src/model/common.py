@@ -80,3 +80,32 @@ class Upsampler(nn.Sequential):
 
         super(Upsampler, self).__init__(*m)
 
+class AblationUpsampler(nn.Sequential):
+    '''a revised version of the Upsampler class that uses interpolation to upsample instead of PixelShuffle'''
+    def __init__(self, conv, scale, n_feats, bn=False, act=False, bias=True):
+
+        m = []
+        if (scale & (scale - 1)) == 0:    # Is scale = 2^n?
+            for _ in range(int(math.log(scale, 2))):
+                m.append(conv(n_feats, n_feats, 3, bias))
+                m.append(F.interpolate(scale_factor=2))
+                if bn: m.append(nn.BatchNorm2d(n_feats))
+
+                if act == 'relu':
+                    m.append(nn.ReLU(True))
+                elif act == 'prelu':
+                    m.append(nn.PReLU(n_feats))
+
+        elif scale == 3:
+            m.append(conv(n_feats, n_feats, 3, bias))
+            m.append(F.interpolate(scale_factor=3))
+            if bn: m.append(nn.BatchNorm2d(n_feats))
+
+            if act == 'relu':
+                m.append(nn.ReLU(True))
+            elif act == 'prelu':
+                m.append(nn.PReLU(n_feats))
+        else:
+            raise NotImplementedError
+
+        super(Upsampler, self).__init__(*m)
