@@ -40,7 +40,7 @@ class EDSR(nn.Module):
 
         # define tail module
         m_tail = [
-            common.Upsampler(conv, scale, n_feats, act=False),
+            common.AblationUpsampler(conv, scale, n_feats, act=False),
             conv(n_feats, args.n_colors, kernel_size)
         ]
 
