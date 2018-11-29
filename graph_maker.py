@@ -3,6 +3,9 @@
 import sys
 import matplotlib.pyplot as plt
 
+#Graphs output of EDSR -- call with `python3 graph_maker.py filename title` 
+#where filename is the name of the data file to graph and title is what you want to name the graph (without .png)
+
 def graph(filename, title):
     with open(filename) as f:
         line = f.readline()
