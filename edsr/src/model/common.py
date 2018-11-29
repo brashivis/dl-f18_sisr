@@ -108,4 +108,4 @@ class AblationUpsampler(nn.Sequential):
         else:
             raise NotImplementedError
 
-        super(Upsampler, self).__init__(*m)
+        super(AblationUpsampler, self).__init__(*m)
