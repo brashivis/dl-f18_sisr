@@ -37,6 +37,13 @@ class Loss(nn.modules.loss._Loss):
                     args,
                     loss_type
                 )
+            elif loss_type.find('perceptual') >= 0:
+                module = import_module('loss.perceptual')
+                loss_function = getattr(module, 'Perceptual')(
+                    int(loss_type.split('-')[1]),
+                    int(loss_type.split('-')[2]),
+                    rgb_range=args.rgb_range
+                )
 
             self.loss.append({
                 'type': loss_type,
