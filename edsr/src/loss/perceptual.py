@@ -37,7 +37,7 @@ class Perceptual(nn.Module):
             for i,layer in enumerate(self.vgg_modules):
                 sr = layer(sr)
                 hr = layer(hr.detach())
-                #add to total loss the MSE at this layer of VGG19 multiplied by a normalization term (1/batch_size*channels*height*width)
-                total_loss += F.mse_loss(sr, hr)*self.vgg_weights[i]*reduce(lambda x,y: x*y, sr.shape)
+                #add to total loss the MSE at this layer of VGG19 multiplied by a normalization term (batch_size/channels*height*width)
+                total_loss += F.mse_loss(sr, hr)*self.vgg_weights[i]*(float(sr.shape[0])/reduce(lambda x,y: x*y, sr.shape[1:]))
 
         return total_loss
