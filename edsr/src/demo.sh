@@ -9,7 +9,7 @@
 #python main.py --model EDSR --scale 4 --save edsr_baseline_x4 --reset --pre_train [pre-trained EDSR_baseline_x2 model dir]
 
 # EDSR in the paper (x2)
-python main.py --model EDSR --epochs 10 --batch_size 16 --loss 1*MSE --scale 2 --save edsr_x2_new --n_resblocks 32 --n_feats 256 --res_scale 0.1 --print_every 1 --reset
+python main.py --model EDSR --epochs 10 --batch_size 16 --loss 1*pereptual-0-17 --scale 2 --save edsr_x2_new --n_resblocks 32 --n_feats 256 --res_scale 0.1 --print_every 1 --reset
 
 # EDSR in the paper (x3) - from EDSR (x2)
 #python main.py --model EDSR --scale 3 --save edsr_x3 --n_resblocks 32 --n_feats 256 --res_scale 0.1 --reset --pre_train [pre-trained EDSR model dir]
