@@ -41,7 +41,6 @@ class Loss(nn.modules.loss._Loss):
                 module = import_module('loss.perceptual')
                 loss_function = getattr(module, 'Perceptual')(
                     int(loss_type.split('-')[1]),
-                    int(loss_type.split('-')[2]),
                     rgb_range=args.rgb_range
                 )
 
