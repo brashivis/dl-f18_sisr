@@ -55,7 +55,7 @@ class Upsampler(nn.Sequential):
     def __init__(self, conv, scale, n_feats, bn=False, act=False, bias=True):
 
         m = []
-        if (scale & (scale - 1)) == 0:    # Is scale = 2^n?
+        if (scale & (scale - 1)) == 0:
             for _ in range(int(math.log(scale, 2))):
                 m.append(conv(n_feats, 4 * n_feats, 3, bias))
                 m.append(nn.PixelShuffle(2))
@@ -85,10 +85,10 @@ class AblationUpsampler(nn.Sequential):
     def __init__(self, conv, scale, n_feats, bn=False, act=False, bias=True):
 
         m = []
-        if (scale & (scale - 1)) == 0:    # Is scale = 2^n?
+        if (scale & (scale - 1)) == 0:
             for _ in range(int(math.log(scale, 2))):
-                m.append(conv(n_feats, n_feats, 3, bias))
-                m.append(nn.Upsample(scale_factor=2))
+                m.append(conv(n_feats, n_feats, 3, bias)) #no longer necessary to convolve to 4*n_feats
+                m.append(nn.Upsample(scale_factor=2)) #equivalent to interpolation
                 if bn: m.append(nn.BatchNorm2d(n_feats))
 
                 if act == 'relu':
