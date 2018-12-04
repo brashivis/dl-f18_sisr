@@ -1,100 +1,55 @@
-## Super Resolution Examples
+## Super-Resolution Generative Adversarial Network
 
+As our ablation study relied only only on changing the loss function for SRGAN and not on changing the underlying architecture, we made few changes to the original code for this model beyond fixing a few bugs to get it up and running. We did, however, change the generator network's loss function, which can be found in `main.py`. 
 
-We run this script under [TensorFlow](https://www.tensorflow.org) 1.4 and the [TensorLayer](https://github.com/tensorlayer/tensorlayer) 1.8.0+.
+To run this model, we used [TensorFlow](https://www.tensorflow.org) 1.4 and [TensorLayer](https://github.com/tensorlayer/tensorlayer) 1.8.0+.
 
-<!---
-⚠️ This repo will be merged into example folder of [tensorlayer](https://github.com/zsdonghao/tensorlayer) soon.
--->
-🚀 **This repo will be moved to [here](https://github.com/tensorlayer/tensorlayer/tree/master/examples) (please star) for life-cycle management soon. More cool Computer Vision applications such as pose estimation and style transfer can be found in this [organization](https://github.com/tensorlayer).**
 
 ### SRGAN Architecture
 
-TensorFlow Implementation of ["Photo-Realistic Single Image Super-Resolution Using a Generative Adversarial Network"](https://arxiv.org/abs/1609.04802)
+We used TensorFlow to implement the architecture from the paper ["Photo-Realistic Single Image Super-Resolution Using a Generative Adversarial Network"](https://arxiv.org/abs/1609.04802) as depicted here:
 
 <a href="http://tensorlayer.readthedocs.io">
 <div align="center">
-	<img src="img/model.jpeg" width="80%" height="10%"/>
+	<img src="img/SRGAN_arch.png" width="80%" height="10%"/>
 </div>
 </a>
 
 
-### Results
+### Preparing Data and Downloading Pre-trained VGG19 Model
 
-<a href="http://tensorlayer.readthedocs.io">
-<div align="center">
-	<img src="img/SRGAN_Result2.png" width="80%" height="50%"/>
-</div>
-</a>
-
-<a href="http://tensorlayer.readthedocs.io">
-<div align="center">
-	<img src="img/SRGAN_Result3.png" width="80%" height="50%"/>
-</div>
-</a>
-
-### Prepare Data and Pre-trained VGG
-
-- 1. You need to download the pretrained VGG19 model in [here](https://mega.nz/#!xZ8glS6J!MAnE91ND_WyfZ_8mvkuSa2YcA7q-1ehfSm-Q1fxOvvs) as [tutorial_vgg19.py](https://github.com/zsdonghao/tensorlayer/blob/master/example/tutorial_vgg19.py) show.
-- 2. You need to have the high resolution images for training.
-  -  In this experiment, I used images from [DIV2K - bicubic downscaling x4 competition](http://www.vision.ee.ethz.ch/ntire17/), so the hyper-paremeters in `config.py` (like number of epochs) are seleted basic on that dataset, if you change a larger dataset you can reduce the number of epochs. 
-  -  If you dont want to use DIV2K dataset, you can also use [Yahoo MirFlickr25k](http://press.liacs.nl/mirflickr/mirdownload.html), just simply download it using `train_hr_imgs = tl.files.load_flickr25k_dataset(tag=None)` in `main.py`. 
-  -  If you want to use your own images, you can set the path to your image folder via `config.TRAIN.hr_img_path` in `config.py`.
+* Download the pretrained VGG19 model from [here](https://mega.nz/#!xZ8glS6J!MAnE91ND_WyfZ_8mvkuSa2YcA7q-1ehfSm-Q1fxOvvs) as [tutorial_vgg19.py](https://github.com/zsdonghao/tensorlayer/blob/master/example/tutorial_vgg19.py) shows.
+* Download the data and update the dataset paths in `config.py`.
+	* In this experiment, we used images from [DIV2K](https://data.vision.ee.ethz.ch/cvl/DIV2K/), a dataset that provides 800 high resolution images for training and 200 for testing as well as various downsampled versions of the same images. We used the bicubic downscaling x2 data (Track 1, downscaling x2 in the link above). Note that the hyper-paremeters in `config.py` (such as number of epochs) were seleted based on this dataset. If you use a larger dataset, for instance, you may want to reduce the number of epochs.
+ 	* Make sure to change the following paths in `config.py` so that they point to the correct dataset directories: `config.TRAIN.hr_img_path`, `config.TRAIN.lr_img_path`, `config.VALID.hr_img_path`, `config.VALID.hr_img_path`, `config.VALID.lr_img_path`
+	* If you want to use your own images for training or validation, simply organize your data in the same way as DIV2K and set the above paths to your dataset.
 
 
-
-### Run
-- Set your image folder in `config.py`, if you download [DIV2K - bicubic downscaling x4 competition](http://www.vision.ee.ethz.ch/ntire17/) dataset, you don't need to change it. 
-- Other links for DIV2K, in case you can't find it : [test\_LR\_bicubic_X4](https://data.vision.ee.ethz.ch/cvl/DIV2K/validation_release/DIV2K_test_LR_bicubic_X4.zip), [train_HR](https://data.vision.ee.ethz.ch/cvl/DIV2K/DIV2K_train_HR.zip), [train\_LR\_bicubic_X4](https://data.vision.ee.ethz.ch/cvl/DIV2K/DIV2K_train_LR_bicubic_X4.zip), [valid_HR](https://data.vision.ee.ethz.ch/cvl/DIV2K/validation_release/DIV2K_valid_HR.zip), [valid\_LR\_bicubic_X4](https://data.vision.ee.ethz.ch/cvl/DIV2K/DIV2K_valid_LR_bicubic_X4.zip).
-
-```python
-config.TRAIN.img_path = "your_image_folder/"
-```
-
-- Start training.
+### Training
+* To train from scratch, run
 
 ```bash
-python main.py
+python3 main.py
 ```
 
-- Start evaluation. ([pretrained model](https://github.com/tensorlayer/srgan/releases/tag/1.2.0) for DIV2K)
+* To evaluate a trained model, run
 
 ```bash
 python main.py --mode=evaluate 
 ```
 
+* A pretrained model (for DIV2K) can be found [here](https://github.com/tensorlayer/srgan/releases/tag/1.2.0)
 
-### Reference
+
+### References
 * [1] [Photo-Realistic Single Image Super-Resolution Using a Generative Adversarial Network](https://arxiv.org/abs/1609.04802)
-* [2] [Is the deconvolution layer the same as a convolutional layer ?](https://arxiv.org/abs/1609.07009)
+* [2] [TensorLayer: A Versatile Library for Efficient Deep Learning Development](https://arxiv.org/abs/1707.08551)
+* [3] [Is the deconvolution layer the same as a convolutional layer?](https://arxiv.org/abs/1609.07009)
 
 ### Author
-- [zsdonghao](https://github.com/zsdonghao)
-
-### Citation
-If you find this project useful, we would be grateful if you cite the TensorLayer paper：
-
-```
-@article{tensorlayer2017,
-author = {Dong, Hao and Supratak, Akara and Mai, Luo and Liu, Fangde and Oehmichen, Axel and Yu, Simiao and Guo, Yike},
-journal = {ACM Multimedia},
-title = {{TensorLayer: A Versatile Library for Efficient Deep Learning Development}},
-url = {http://tensorlayer.org},
-year = {2017}
-}
-```
-
-### Other Projects
-
-- [Style Transfer](https://github.com/tensorlayer/adaptive-style-transfer)
-- [Pose Estimation](https://github.com/tensorlayer/openpose)
-
-### Discussion
-
-- [TensorLayer Slack](https://join.slack.com/t/tensorlayer/shared_invite/enQtMjUyMjczMzU2Njg4LWI0MWU0MDFkOWY2YjQ4YjVhMzI5M2VlZmE4YTNhNGY1NjZhMzUwMmQ2MTc0YWRjMjQzMjdjMTg2MWQ2ZWJhYzc)
-- [TensorLayer WeChat](https://github.com/tensorlayer/tensorlayer-chinese/blob/master/docs/wechat_group.md)
+* Heavily based on work by [zsdonghao](https://github.com/zsdonghao)
+* [TensorLayer](https://tensorlayer.readthedocs.io/en/stable/) uses the GitHub [here](https://github.com/tensorlayer/tensorlayer) and is based on the paper [here](https://arxiv.org/abs/1707.08551)
 
 ### License
-
-- For academic and non-commercial use only.
-- For commercial use, please contact tensorlayer@gmail.com.
+* For academic and non-commercial use only.
+* For commercial use, please contact tensorlayer@gmail.com.
