@@ -16,7 +16,7 @@ We used TensorFlow to implement the architecture from the paper ["Photo-Realisti
 </a>
 
 
-### Preparing Data and Downloading Pre-trained VGG19 Model
+### Preparing the Data and Downloading the Pre-trained VGG19 Model
 
 * Download the pretrained VGG19 model from [here](https://mega.nz/#!xZ8glS6J!MAnE91ND_WyfZ_8mvkuSa2YcA7q-1ehfSm-Q1fxOvvs) or [here](https://media.githubusercontent.com/media/tensorlayer/pretrained-models/master/models/vgg19.npy).
 * Download the data and update the dataset paths in `config.py`.
@@ -25,7 +25,7 @@ We used TensorFlow to implement the architecture from the paper ["Photo-Realisti
 	* If you want to use your own images for training or validation, simply organize your data in the same way as DIV2K and set the above paths to your dataset.
 
 
-### Training
+### Training and Testing
 * To train from scratch, run
 
 ```bash
