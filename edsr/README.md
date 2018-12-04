@@ -45,4 +45,28 @@ We used PyTorch to implement the architecture from the paper ["Enhanced Deep Res
 sh demo.sh   # Assuming you are in edsr/src
 ```
 
-* To test a pre-trained model on your own images, place the desired images (either **png** or **jpeg**) in the `test` folder (`edsr/test/<your_image>`) and run the `src/demo.sh` file with the appropriate line uncommented (a line with the `--data_test` argument set). The resulting images will be saved in the `experiment/test/results` folder.
+* Otherwise, look in `src/option.py` for all possible arguments and run
+
+```bash
+python main.py <your custom flags>	# Assuming you are in edsr/src
+```
+
+* For each of our experiments, we used the following arguments (in addition to experiment-specific arguments, such as loss):
+
+```bash
+python main.py --model EDSR --epochs 200 --batch_size 16 --scale 2 --n_resblocks 32 --n_feats 256 --res_scale 0.1 --print_every 1 --reset
+```
+
+* To use a pre-trained model, use the argument `--pre_train download`, which will automatically download the model from the server
+* To test a model on your own images, place the desired images (either **png** or **jpeg**) in the `test` folder (`edsr/test/<your_image>`) and run the `src/demo.sh` file with the appropriate line uncommented (a line with the `--data_test` argument set). The resulting images will be saved in the `experiment/test/results` folder.
+
+
+### References
+* [1] [Enhanced Deep Residual Networks for Single Image Super-Resolution](https://arxiv.org/abs/1707.02921)
+* [2] [Perceptual Losses for Real-Time Style Transfer and Super-Resolution](https://arxiv.org/abs/1603.08155)
+
+### Author
+* Based on code from [here](https://github.com/thstkdgus35/EDSR-PyTorch) and [here](https://github.com/LimBee/NTIRE2017).
+
+### License
+* For academic and non-commercial use only.
