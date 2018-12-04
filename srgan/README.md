@@ -18,7 +18,7 @@ We used TensorFlow to implement the architecture from the paper ["Photo-Realisti
 
 ### Preparing Data and Downloading Pre-trained VGG19 Model
 
-* Download the pretrained VGG19 model from [here](https://mega.nz/#!xZ8glS6J!MAnE91ND_WyfZ_8mvkuSa2YcA7q-1ehfSm-Q1fxOvvs) as [tutorial_vgg19.py](https://github.com/zsdonghao/tensorlayer/blob/master/example/tutorial_vgg19.py) shows.
+* Download the pretrained VGG19 model from [here](https://mega.nz/#!xZ8glS6J!MAnE91ND_WyfZ_8mvkuSa2YcA7q-1ehfSm-Q1fxOvvs) or [here](https://media.githubusercontent.com/media/tensorlayer/pretrained-models/master/models/vgg19.npy).
 * Download the data and update the dataset paths in `config.py`.
 	* In this experiment, we used images from [DIV2K](https://data.vision.ee.ethz.ch/cvl/DIV2K/), a dataset that provides 800 high resolution images for training and 200 for testing as well as various downsampled versions of the same images. We used the bicubic downscaling x2 data (Track 1, downscaling x2 in the link above). Note that the hyper-paremeters in `config.py` (such as number of epochs) were seleted based on this dataset. If you use a larger dataset, for instance, you may want to reduce the number of epochs.
  	* Make sure to change the following paths in `config.py` so that they point to the correct dataset directories: `config.TRAIN.hr_img_path`, `config.TRAIN.lr_img_path`, `config.VALID.hr_img_path`, `config.VALID.hr_img_path`, `config.VALID.lr_img_path`
