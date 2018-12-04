@@ -1,6 +1,6 @@
 ## Super-Resolution Generative Adversarial Network
 
-This repository is based off of an unofficial TensorFlow implementation of [SRGAN](https://arxiv.org/abs/1609.04802) that can be found [here](https://github.com/tensorlayer/srgan). As our ablation study relied only on changing the loss function for SRGAN and not on changing the underlying architecture, we made few changes to the original code for this model beyond fixing a few bugs to get it up and running. We did, however, change the generator network's loss function, which can be found in `main.py`. 
+This repository is based off of an unofficial TensorFlow implementation of [SRGAN](https://arxiv.org/abs/1609.04802) that can be found [here](https://github.com/tensorlayer/srgan). As our ablation study relied only on changing the loss function for SRGAN and not on changing the underlying architecture, we made few changes to the original code for this model beyond fixing a few bugs to get it up and running. We did, however, change the generator network's loss function, which can be found in `main.py`. The model's primary code and structure can be found in `main.py` and `model.py`.
 
 To run this model, we used [TensorFlow](https://www.tensorflow.org) 1.4 and [TensorLayer](https://github.com/tensorlayer/tensorlayer) 1.8.0+.
 
