@@ -1,22 +1,20 @@
-# Single-Image Super Resolution
+# Single-Image Super Resolution Using EDSR and SRGAN
 
-This repository has two main folders, srgan and edsr. 
+This repository has two main folders, edsr and srgan. 
 
-The first, srgan, is based on [SRGAN](https://github.com/tensorlayer/srgan), a Super Resolution model built using a GAN (Generative Adversarial Network). The paper this model is based on can be found [here](https://arxiv.org/abs/1609.04802).
+The first, edsr, is based on EDSR (Enhanced Deep Super Resolution network), a Super Resolution model built with a ResNet-like architecture that utilizes successive convolutional layers and residual connections. EDSR was first presented in a paper by Lim et al. that can be found [here](http://openaccess.thecvf.com/content_cvpr_2017_workshops/w12/papers/Lim_Enhanced_Deep_Residual_CVPR_2017_paper.pdf). The code in this folder is based off of a PyTorch implementation of the paper that can be found [here](https://github.com/thstkdgus35/EDSR-PyTorch). The original, official code repository for EDSR primarily uses Lua and can be found [here](https://github.com/LimBee/NTIRE2017). The model's primary code and structure can be found in the `edsr/src/loss/` folder and the `edsr/src/model/` folder (specifically `edsr/src/model/edsr.py` and `edsr/src/model/common.py`).
 
-The second, edsr, is based on [EDSR](https://github.com/thstkdgus35/EDSR-PyTorch), another Super Resolution model. This model is based on SRResNet. The paper on which this model is based can be found [here](http://openaccess.thecvf.com/content_cvpr_2017_workshops/w12/papers/Lim_Enhanced_Deep_Residual_CVPR_2017_paper.pdf). The code we are using here (and the link above) is the PyTorch implmentation of the paper. The original code repository, which mainly uses Lua, can be found [here](https://github.com/LimBee/NTIRE2017).
+The second, srgan, is based on SRGAN (Super Resolution Generative Adversarial Network), a Super Resolution model built using a GAN architecture. SRGAN was first presented in a paper by Ledig et al. that can be found [here](https://arxiv.org/abs/1609.04802). The code in this folder is heavily based off of a TensorFlow implementation of SRGAN that can be found [here](https://github.com/tensorlayer/srgan). The model's primary code and structure can be found in `srgan/main.py` and `srgan/model.py`.
 
-Entering either folder will display the original README file for each project. The goal of this project is to perform an ablation study and test whether various hypotheses improve on the results achieved by these models. We plan on investigating at least the following:
+Entering either folder will display a modified version of the original README file for each project. For more information on our changes to the code of either model, please refer to these README's. The goal of this project was to perform an ablation study on both models. We implemented and tested the following:
 
-* Using upscaling methods other than pixel shufﬂe
-* Using a higher volume of data to train
-* Tuning convolutional layer parameters and adding more convolutional layers
-* Integrating noise, such as blurring, in pre-processing
-* Using speciﬁc types of images, such as landscapes, to train a specialized model
-* Using the perceptual loss function as suggested in [Johnson et al.](https://arxiv.org/abs/1603.08155) instead of PSNR
+* Training Lim et al.'s SRGAN model using mean square error (MSE) in order to provide a direct comparison to the state-of-the-art EDSR model
+* Using interpolation rather than pixel shuffle in EDSR to upsample the final output
+* Integrating noise, such as salt-and-pepper noise and blurring, into the preprocessing stage in order to compare how the models perform under different conditions 
+* Using specific types of images, such as landscapes, to train a specialized EDSR model
+* Using the perceptual loss function suggested in Johnson et al. [here](https://arxiv.org/abs/1603.08155) instead of MSE to train EDSR
+
 
 ## Trained Models
 
-We have run the training scripts for both these models. Our pre-trained models are not available on GitHub right now due to their size.
-
-For instructions on how to train each model, please read their respective README files.
+For instructions on how to train each model, please refer to each project's respective README file. Our own pre-trained models are not available on GitHub due to their size. 
