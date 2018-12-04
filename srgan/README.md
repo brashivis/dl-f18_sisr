@@ -29,7 +29,7 @@ We used TensorFlow to implement the architecture from the paper ["Photo-Realisti
 * To train from scratch, run
 
 ```bash
-python3 main.py
+python main.py
 ```
 
 * To evaluate a trained model, run
