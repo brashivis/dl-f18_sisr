@@ -21,7 +21,7 @@ parser.add_argument('--seed', type=int, default=1,
 # Data specifications
 parser.add_argument('--dir_data', type=str, default='/home/jsm2225/EDSR-PyTorch-master/datasets',
                     help='dataset directory')
-parser.add_argument('--dir_demo', type=str, default='../test',
+parser.add_argument('--dir_demo', type=str, default='./test_image',
                     help='demo image directory')
 parser.add_argument('--data_train', type=str, default='DIV2K',
                     help='train dataset name')
