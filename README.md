@@ -19,6 +19,7 @@ Entering either folder will display a modified version of the original README fi
 * Using the perceptual loss function suggested in Johnson et al. [here](https://arxiv.org/abs/1603.08155) instead of MSE to train EDSR
 * Qualitatively (rather than quantitatively) comparing the images produced using perceptual loss against those produced by the baseline (MSE) EDSR model
 
+As of right now, the code for various parts of the ablation study are in different branches. `develop` contains code to run and test both baseline models. `feature/custom_data` contains code to run EDSR on a custom dataset. `feature/preceptual_loss` contains code to run EDSR on our implementation of perceptual loss, based on Johnson et al. `feature/upsampling` contains the code that trains EDSR using interpolation instead of pixel shuffling.
 
 ## Trained Models
 
