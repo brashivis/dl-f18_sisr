@@ -19,13 +19,21 @@ parser.add_argument('--seed', type=int, default=1,
                     help='random seed')
 
 # Data specifications
-parser.add_argument('--dir_data', type=str, default='/home/jsm2225/EDSR-PyTorch-master/datasets',
+#parser.add_argument('--dir_data', type=str, default='/home/jsm2225/EDSR-PyTorch-master/datasets',
+#                    help='dataset directory')
+
+parser.add_argument('--dir_data', type=str, default='../new_dataset/',
                     help='dataset directory')
+<<<<<<< Updated upstream
 parser.add_argument('--dir_demo', type=str, default='../test',
+=======
+
+parser.add_argument('--dir_demo', type=str, default='./test_image',
+>>>>>>> Stashed changes
                     help='demo image directory')
-parser.add_argument('--data_train', type=str, default='DIV2K',
+parser.add_argument('--data_train', type=str, default='NewData', #DIV2K
                     help='train dataset name')
-parser.add_argument('--data_test', type=str, default='DIV2K',
+parser.add_argument('--data_test', type=str, default='NewData', #DIV2K
                     help='test dataset name')
 parser.add_argument('--data_range', type=str, default='1-800/801-810',
                     help='train/test data range')
