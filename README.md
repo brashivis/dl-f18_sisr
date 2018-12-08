@@ -13,11 +13,11 @@ The second, srgan, is based on SRGAN (Super Resolution Generative Adversarial Ne
 
 Entering either folder will display a modified version of the original README file for each project. For more information on our changes to the code of either model, please refer to these README's. The goal of this project was to perform an ablation study on both models. We implemented and tested the following:
 
-* Training Lim et al.'s SRGAN model using mean square error (MSE) in order to provide a direct comparison to the state-of-the-art EDSR model
+* Training Lim et al.'s SRGAN model using MSE in order to provide a direct comparison to the state-of-the-art EDSR model
 * Using interpolation rather than pixel shuffle in EDSR to upsample the final output
-* Integrating noise, such as salt-and-pepper noise and blurring, into the preprocessing stage in order to compare how the models perform under different conditions 
-* Using specific types of images, such as landscapes, to train a specialized EDSR model
+* Testing images with noise, including salt-and-pepper, speckle, and blurring, in order to compare how the models perform under different conditions 
 * Using the perceptual loss function suggested in Johnson et al. [here](https://arxiv.org/abs/1603.08155) instead of MSE to train EDSR
+* Qualitatively (rather than quantitatively) comparing the images produced using perceptual loss against those produced by the baseline (MSE) EDSR model
 
 
 ## Trained Models
