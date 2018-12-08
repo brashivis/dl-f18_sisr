@@ -91,6 +91,7 @@ def train():
     vgg_loss = 2e-6 * tl.cost.mean_squared_error(vgg_predict_emb.outputs, vgg_target_emb.outputs, is_mean=True)
 
     g_loss = mse_loss + vgg_loss + g_gan_loss
+    #g_loss = mse_loss
 
     g_vars = tl.layers.get_variables_with_name('SRGAN_g', True, True)
     d_vars = tl.layers.get_variables_with_name('SRGAN_d', True, True)
@@ -111,7 +112,7 @@ def train():
     tl.files.load_and_assign_npz(sess=sess, name=checkpoint_dir + '/d_{}.npz'.format(tl.global_flag['mode']), network=net_d)
 
     ###============================= LOAD VGG ===============================###
-    vgg19_npy_path = "vgg19.npy"
+    '''vgg19_npy_path = "vgg19.npy"
     if not os.path.isfile(vgg19_npy_path):
         print("Please download vgg19.npz from : https://github.com/machrisaa/tensorflow-vgg")
         exit()
@@ -126,7 +127,7 @@ def train():
     tl.files.assign_params(sess, params, net_vgg)
     # net_vgg.print_params(False)
     # net_vgg.print_layers()
-
+'''
     ###============================= TRAINING ===============================###
     ## use first `batch_size` of train set to have a quick test during training
     sample_imgs = train_hr_imgs[0:batch_size]
@@ -238,7 +239,7 @@ def train():
             tl.files.save_npz(net_d.all_params, name=checkpoint_dir + '/d_{}.npz'.format(tl.global_flag['mode']), sess=sess)
 
 
-def evaluate():
+def evaluate(imid=64):
     ## create folders to save result images
     save_dir = "samples/{}".format(tl.global_flag['mode'])
     tl.files.exists_or_mkdir(save_dir)
@@ -263,7 +264,7 @@ def evaluate():
     # exit()
 
     ###========================== DEFINE MODEL ============================###
-    imid = 64  # 0: 企鹅  81: 蝴蝶 53: 鸟  64: 古堡
+#    imid = 64  # 0: 企鹅  81: 蝴蝶 53: 鸟  64: 古堡
     valid_lr_img = valid_lr_imgs[imid]
     valid_hr_img = valid_hr_imgs[imid]
     # valid_lr_img = get_imgs_fn('test.png', 'data2017/')  # if you want to test your own image
@@ -288,12 +289,12 @@ def evaluate():
 
     print("LR size: %s /  generated HR size: %s" % (size, out.shape))  # LR size: (339, 510, 3) /  gen HR size: (1, 1356, 2040, 3)
     print("[*] save images")
-    tl.vis.save_image(out[0], save_dir + '/valid_gen.png')
-    tl.vis.save_image(valid_lr_img, save_dir + '/valid_lr.png')
-    tl.vis.save_image(valid_hr_img, save_dir + '/valid_hr.png')
+    tl.vis.save_image(out[0], save_dir + '/valid_gen_{}.png'.format(imid))
+    tl.vis.save_image(valid_lr_img, save_dir + '/valid_lr_{}.png'.format(imid))
+    tl.vis.save_image(valid_hr_img, save_dir + '/valid_hr_{}.png'.format(imid))
 
     out_bicu = scipy.misc.imresize(valid_lr_img, [size[0] * 4, size[1] * 4], interp='bicubic', mode=None)
-    tl.vis.save_image(out_bicu, save_dir + '/valid_bicubic.png')
+    tl.vis.save_image(out_bicu, save_dir + '/valid_bicubic_{}.png'.format(imid))
 
 
 if __name__ == '__main__':
@@ -301,14 +302,16 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser()
 
     parser.add_argument('--mode', type=str, default='srgan', help='srgan, evaluate')
+    parser.add_argument('--imid', type=int, default='64', help='imid, evaluate')
 
     args = parser.parse_args()
 
     tl.global_flag['mode'] = args.mode
+    i = args.imid
 
     if tl.global_flag['mode'] == 'srgan':
         train()
     elif tl.global_flag['mode'] == 'evaluate':
-        evaluate()
+        evaluate(imid=i)
     else:
         raise Exception("Unknow --mode")
